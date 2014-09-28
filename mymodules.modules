@@ -1,0 +1,361 @@
+<?xml version="1.0"?>
+<!DOCTYPE moduleset SYSTEM "moduleset.dtd">
+<!-- :mode=xml:tabSize=4:indentSize=4:folding=explicit: -->
+<moduleset>
+ <!-- I use the definitions pulled by gtk-osx-setup.sh (stable branch)
+      otherwise some packages fail -->
+    <include href="../../../Volumes/MAC2/QLGtkOSX/jhbuild/modulesets/gtk-osx.modules"/>
+
+  <repository type="git" name="svn.gnome.org"
+      href="git://git.gnome.org/">
+  </repository>
+
+  <repository type="tarball" name="effbot" 
+              href="http://effbot.org/downloads/"/>
+
+  <repository type="git" name="github"
+      href="git://github.com/"/>
+              
+  <!-- for setuptools, for feedparser -->
+  <repository type="tarball" name="pypi"
+              href="http://pypi.python.org/packages/source/"/>
+
+  <repository type='tarball' name='ftp.gnu.org' href="ftp://ftp.gnu.org/gnu/"/>
+  <repository type='tarball' name='ftp.gnupg.org' href="ftp://ftp.gnupg.org/" />
+  <repository type="tarball" name="ftp.gnome.org"
+              href="http://ftp.gnome.org/pub/GNOME/sources/"/>
+  <repository type="tarball" name="mutagen"
+              href="http://mutagen.googlecode.com/files/"/>
+  <repository type="tarball" name="quodlibet"
+              href="https://bitbucket.org/lazka/quodlibet-files/src/23d4d64783957e413184f39db1beeb1e5db13a04/releases/"/>
+  <repository type="tarball" name="entropywave"
+	      href="http://code.entropywave.com/download/"/>
+  <repository type="tarball" name="xiph"
+	      href="http://downloads.xiph.org/releases/"/>
+  <repository type="tarball" name="itstool"
+	      href="http://files.itstool.org/itstool/"/>
+  <repository type="tarball" name="ftp.gnutls.org"
+	      href="ftp://ftp.gnutls.org/"/>
+  <repository type="tarball" name="mars"
+	      href="ftp://ftp.mars.org/pub/mpeg/"/>
+  <repository type="tarball" name="gstreamer"
+	      href="http://gstreamer.freedesktop.org/src/"/>
+  <repository type="tarball" name="musicbrainz"
+          href="http://ftp.musicbrainz.org/pub/musicbrainz/"/>
+  <repository type="tarball" name="hadess"
+              href="http://freedesktop.org/~hadess/"/>
+
+
+  <distutils id="quodlibet">
+    <branch repo="quodlibet" module="quodlibet-3.2.1.tar.gz" version="3.2.1"
+    		checkoutdir="quodlibet-3.2.1" hash="sha256:4dbcfab67bdbfc29d36680ed99fe3b911ce86328eae3557f62d36a55ba2f60f1">
+      <patch file="https://trac.macports.org/export/125865/trunk/dports/python/quodlibet/files/patch-de134e03-fix_normalize_darwin_path.diff"/>
+    </branch>
+    <dependencies>
+      <dep package="liborc"/>
+      <dep package="gstreamer-1.0"/>
+      <dep package="gst-plugins-base-1.0"/>
+      <dep package="gst-plugins-good-1.0"/>
+      <dep package="gst-plugins-ugly-1.0"/>
+      <dep package="mutagen" /> 
+      <dep package="feedparser" /> 
+      <dep package="musicbrainz2" />
+      <dep package="meta-gtk-osx-python-gtk3"/>
+      <!--  not necessary ? -->
+      <dep package="shared-mime-info" /> 
+    </dependencies>
+  </distutils>
+
+  <distutils id="setuptools">
+    <branch repo="pypi" checkoutdir="setuptools-0.6c11" module="s/setuptools/setuptools-0.6c11.tar.gz"
+	    version="4.1" md5sum="7df2a529a074f613b509fb44feefe74e"/>
+  </distutils>
+
+  <distutils id="feedparser">
+    <branch repo="pypi" checkoutdir="feedparser-5.1.3" module="f/feedparser/feedparser-5.1.3.tar.bz2"
+	    version="5.1.3"/>
+    <dependencies>
+    <dep package="setuptools"/>
+    </dependencies>
+  </distutils>
+
+  <distutils id="mutagen">
+    <branch repo="mutagen" checkoutdir="mutagen-1.21" module="http://mutagen.googlecode.com/files/mutagen-1.21.tar.gz"
+	    version="1.21"/>
+    <dependencies>
+    <dep package="setuptools"/>
+    </dependencies>
+  </distutils>
+
+  <distutils id="musicbrainz2">
+    <branch repo="musicbrainz" checkoutdir="musicbrainz2-0.7.4" module="python-musicbrainz2/python-musicbrainz2-0.7.4.tar.gz"
+	    version="0.7.4"/>
+    <dependencies>
+    <dep package="setuptools"/>
+    </dependencies>
+  </distutils>
+
+  <autotools id="shared-mime-info"  autogen-sh="configure"
+             supports-non-srcdir-builds="no" >
+    <branch module="shared-mime-info-0.90.tar.bz2" version="0.90"
+            repo="hadess"/>
+    <dependencies>
+      <dep package="intltool"/>
+      <dep package="glib"/>
+    </dependencies>
+  </autotools>
+
+  <!-- {{{ recent gtk -->
+  <autotools id="gtk+-3.0" autogen-sh="autogen.sh"
+             autogenargs="--enable-quartz-backend --enable-quartz-relocation --disable-cloudprint">
+    <branch repo="ftp.gnome.org" module="gtk+/3.12/gtk+-3.12.2.tar.xz" version="3.12.2"
+            hash="sha256:61d74eea74231b1ea4b53084a9d6fc9917ab0e1d71b69d92cbf60a4b4fb385d0">
+      <patch file="https://trac.macports.org/raw-attachment/ticket/43283/patch-backingScaleFactor.diff"/>
+    </branch>
+    <dependencies>
+      <dep package="glib"/>
+      <dep package="pango"/>
+      <dep package="atk"/>
+      <dep package="gdk-pixbuf"/>
+      <dep package="gobject-introspection"/>
+    </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+    </after>
+  </autotools>
+
+  <autotools id="glib" autogen-sh="autoreconf" autogenargs="--disable-gtk-doc">
+    <branch repo="ftp.gnome.org" module="glib/2.40/glib-2.40.2.tar.xz"  version="2.40.2"
+            hash="sha256:e8ff8af2950897e805408480c454c415d1eade4e670ec5fb507f5e5853726c7a">
+      <patch file="http://git.gnome.org/browse/gtk-osx/plain/patches/0001-Bug-724590-GSlice-slab_stack-corruption.patch" strip="1"/>
+    </branch>
+    <dependencies>
+      <dep package="libffi"/>
+    </dependencies>
+    <after>
+      <dep package="meta-gtk-osx-bootstrap"/>
+    </after>
+  </autotools>
+
+ <autotools id="atk" autogen-sh="configure">
+    <branch repo="ftp.gnome.org" module="atk/2.12/atk-2.12.0.tar.xz" version="2.12.0"
+            hash="sha256:48a8431974639c5a59c24fcd3ece1a19709872d5dfe78907524d9f5e9993f18f"/>
+    <dependencies>
+    </dependencies>
+    <after>
+      <dep package="glib"/>
+      <dep package="meta-gtk-osx-bootstrap"/>
+    </after>
+  </autotools>
+   <autotools id="pygobject3" autogen-sh="configure" >
+    <branch repo="ftp.gnome.org" version="3.12.2" module="pygobject/3.12/pygobject-3.12.2.tar.xz"
+            hash="sha256:7e7a3d349acf5bb4b68f8539a42e67958840a67cd4f0341ee9aa49189af2a522"/>
+    <dependencies>
+      <dep package="meta-gtk-osx-gtk3"/>
+    </dependencies>
+    <after>
+      <dep package="python"/>
+      <dep package="python3"/>
+    </after>
+  </autotools>
+  
+  <!-- for recent gtk-doc -->
+  <autotools id="itstool" 
+         makeargs="-k -i" makeinstallargs="-k -i install"
+	     autogen-sh="configure">
+    <branch repo="itstool" version="2.0.2" module="itstool-2.0.2.tar.bz2"
+	    hash="sha256:bf909fb59b11a646681a8534d5700fec99be83bb2c57badf8c1844512227033a"/>
+  </autotools>
+  
+  <autotools id="gtk-doc" autogenargs="--disable-scrollkeeper --with-xml-catalog=$JHBUILD_PREFIX/etc/xml/catalog"
+	     makeargs="-k -i" makeinstallargs="-k -i install"
+	     autogen-sh="configure">
+    <branch repo="ftp.gnome.org" version="1.21" module="gtk-doc/1.21/gtk-doc-1.21.tar.xz"
+	    hash="sha256:5d934d012ee08edd1585544792efa80da271652587ba5b843d2cea8e8b80ee3e"/>
+    <dependencies>
+      <dep package="gtk-osx-docbook"/>
+      <dep package="itstool"/>
+    </dependencies>
+  </autotools>
+  <autotools id="gnome-themes-standard" autogen-sh="configure"
+	    autogenargs='--disable-gtk2-engine'>
+    <branch repo="ftp.gnome.org" module="gnome-themes-standard/3.12/gnome-themes-standard-3.12.0.tar.xz"
+            version="3.12.0" hash="sha256:a05d1b7ca872b944a69d0c0cc2369408ece32ff4355e37f8594a1b70d13c3217"/>
+    <dependencies>
+      <dep package="librsvg"/>
+      <dep package="gnome-icon-theme"/>
+    </dependencies>
+  </autotools>
+  <!-- }}} -->
+  
+  <!-- for gstreamer Gst.gir -->
+  <autotools id="gobject-introspection" autogen-sh="configure">
+    <branch repo="ftp.gnome.org" module="gobject-introspection/1.41/gobject-introspection-1.41.91.tar.xz"
+            version="1.41.91"
+            hash="sha256:a1ea708eeaa13dcc5a3078b1ae5aae178f22410023a56c699560f4e068722d9e">
+      <patch file="http://git.gnome.org/browse/gtk-osx/plain/patches/girscanner-objc.patch" strip="1"/>
+    </branch>
+    <dependencies>
+      <dep package="glib"/>
+      <dep package="cairo"/>
+    </dependencies>
+    <after>
+      <dep package='python'/>
+    </after>
+  </autotools>
+
+  <!-- {{{ recent gstreamer  -->
+  <autotools id="gst-plugins-base-1.0" autogenargs="--disable-tests --disable-x --disable-xvideo" supports-non-srcdir-builds="no"
+    makeargs="ERROR_CFLAGS=" autogen-sh="configure">
+    <branch repo="ftp.gnome.org" module="gst-plugins-base/1.4/gst-plugins-base-1.4.3.tar.xz"
+            version="1.4.3" hash="sha256:f7b4d2b3ba2bcac485896e2c1c36459cb091ebe8b49e91635c27d40f66792d9d"/>
+    <dependencies>
+      <dep package="gstreamer-1.0"/>
+      <dep package="liborc"/>
+      <dep package="libogg"/>
+      <dep package="libvorbis"/>
+    </dependencies>
+    <after>
+    </after>
+  </autotools>
+  <autotools id="gst-plugins-good-1.0" autogenargs="-- --disable-tests --disable-x --disable-xvideo --disable-osx-video" supports-non-srcdir-builds="no"
+    makeargs="ERROR_CFLAGS=" autogen-sh="configure">
+    <branch repo="ftp.gnome.org" module="gst-plugins-good/1.4/gst-plugins-good-1.4.3.tar.xz"
+            version="1.4.3" hash="sha256:5876a74402f2a24d1d3ae9163c32466bdc7a565696dddeef65e6a9a93efc5537"/>
+    <dependencies>
+      <dep package="gstreamer-1.0"/>
+      <dep package="gst-plugins-base-1.0"/>
+      <dep package="libspeex"/>
+      <dep package="libflac"/>
+    </dependencies>
+  </autotools>
+  <autotools id="gst-plugins-ugly-1.0" autogenargs="-- --disable-tests" supports-non-srcdir-builds="no"
+    makeargs="ERROR_CFLAGS=" autogen-sh="configure">
+    <branch repo="gstreamer" module="gst-plugins-ugly/gst-plugins-ugly-1.4.3.tar.xz"
+            version="1.4.3" hash="sha256:d581592a82cf3930361430d38436c30a58d8b6c249cad18f7f213b203e206d46"/>
+    <dependencies>
+      <dep package="gstreamer-1.0"/>
+      <dep package="gst-plugins-base-1.0"/>
+      <dep package="libmad"/>
+    </dependencies>
+  </autotools>
+  <autotools id="gstreamer-1.0" autogenargs="--disable-tests" supports-non-srcdir-builds="no"
+    makeargs="ERROR_CFLAGS=" autogen-sh="configure">
+    <branch repo="ftp.gnome.org" module="gstreamer/1.4/gstreamer-1.4.3.tar.xz"
+    		version="1.4.3" hash="sha256:11f155784d28b85a12b50d2fc8f91c6b75d9ca325cc76aaffba1a58d4c9549c9">
+    </branch>
+    <after>
+      <dep package="glib"/>
+    </after>
+  </autotools>
+  <!-- for recent gstreamer -->
+  <autotools id="bison" autogen-sh="configure">
+    <branch repo="ftp.gnu.org" module="bison/bison-2.6.3.tar.xz"
+            version="2.6.3"/>
+  </autotools>
+  <autotools id="liborc" autogen-sh="configure">
+    <branch module="orc/orc-0.4.18.tar.gz"
+	    repo="entropywave" version="0.4.18"/>
+  </autotools>
+
+  <!-- gstreamer codecs -->
+  <autotools id="libogg" autogen-sh="configure">
+    <branch module="ogg/libogg-1.3.2.tar.xz"
+	    repo="xiph" version="1.3.2" hash="sha256:3f687ccdd5ac8b52d76328fbbfebc70c459a40ea891dbf3dccb74a210826e79b"/>
+  </autotools>
+  <autotools id="libvorbis" autogen-sh="configure" autogenargs="--disable-oggtest">
+    <branch module="vorbis/libvorbis-1.3.4.tar.xz"
+	    repo="xiph" version="1.3.4" hash="sha256:2f05497d29195dc23ee952a24ee3973a74e6277569c4c2eca0ec5968e541f372"/>
+  </autotools>
+  <autotools id="libspeex" autogen-sh="configure">
+    <branch module="speex/speex-1.2rc1.tar.gz"
+	    repo="xiph" version="1.2rc1" hash="sha1:52daa72572e844e5165315e208da539b2a55c5eb"/>
+    <dependencies>
+      <dep package="libogg"/>
+    </dependencies>
+  </autotools>
+  <autotools id="libmad"  autogen-sh="autoreconf" autogenargs="">
+    <branch module="libmad-0.15.1b.tar.gz"
+	    repo="mars" version="0.15.1b" hash="sha256:bbfac3ed6bfbc2823d3775ebb931087371e142bb0e9bb1bee51a76a6e0078690">
+	  <patch file="https://trac.macports.org/export/125862/trunk/dports/audio/libmad/files/patch-configure.ac.diff" />
+	  <patch file="https://trac.macports.org/export/125862/trunk/dports/audio/libmad/files/automake.patch" />
+	  <patch file="patch-libmad-add-missing.patch" />
+	</branch>	    
+  </autotools>
+  <autotools id="libflac"  autogen-sh="autoreconf" autogenargs="--disable-silent-rules --disable-xmms-plugin" makeargs="OBJ_FORMAT=macho">
+    <branch module="flac/flac-1.3.0.tar.xz"
+	    repo="xiph" version="1.2rc1" hash="sha256:fa2d64aac1f77e31dfbb270aeb08f5b32e27036a52ad15e69a77e309528010dc"/>
+    <dependencies>
+      <dep package="libogg"/>
+    </dependencies>
+  </autotools>
+  
+  
+  <!-- }}} -->
+
+  <!-- {{{ libsoup and deps, doesn't build yet  -->
+  <autotools id="libsoup" autogen-sh="configure" autogenargs="--disable-more-warnings --disable-silent-rules --without-gnome --enable-introspection">
+    <branch repo="ftp.gnome.org" module="libsoup/2.46/libsoup-2.46.0.tar.xz"
+            version="2.46.0" hash="sha256:fa3d5574c1a2df521242e2ca624a2b3057121798cab9f8f40525aa186a7b15a3" />
+    <dependencies>
+      <dep package="glib"/>
+      <dep package="glib-networking"/>
+      <dep package="gobject-introspection"/>
+      <!-- <dep package='sqlite'/> not necessary ?-->
+    </dependencies>
+  </autotools>
+  <autotools id="glib-networking" autogen-sh="configure"
+	     autogenargs="--without-ca-certificates set_more_warnings=no">
+    <branch repo="ftp.gnome.org" module="glib-networking/2.40/glib-networking-2.41.1.tar.xz"
+	    version="2.40.1" hash="sha256:9fb3e54d049a480afdb814ff7452e7ab67e5d5f607ade230d7713f19922b5a28"/>
+    <dependencies>
+      <dep package="gnutls"/>
+      <dep package="libgcrypt"/>
+    </dependencies>
+  </autotools>
+  <autotools id="gnutls" autogen-sh="configure"
+	     autogenargs="--with-libgcrypt --without-p11-kit">
+    <branch repo='ftp.gnutls.org' version='3.3.8'
+            module="gcrypt/gnutls/v3.3/gnutls-3.3.8.tar.xz"
+            hash="sha256:bd4642f180e19632f4ed3a1e62d60c824c7b695f5cddf41a8fba1b272eaef046"/>
+    <dependencies>
+      <dep package="libgcrypt" />
+      <dep package="libtasn1" />
+      <dep package="zlib"/>
+    </dependencies>
+  </autotools>
+  <autotools id="libtasn1" supports-non-srcdir-builds="no"
+	     autogen-sh="configure">
+    <branch repo="ftp.gnu.org" version='4.2'
+	    module="libtasn1/libtasn1-4.2.tar.gz"
+	    hash="sha256:693b41cb36c2ac02d5990180b0712a79a591168e93d85f7fcbb75a0a0be4cdbb"/>
+  </autotools>
+  <autotools id="libgcrypt" autogen-sh="configure" autogenargs="--disable-asm --disable-avx-support --disable-avx2-support ">
+    <branch repo='ftp.gnupg.org' version='1.6.2'
+	    module='gcrypt/libgcrypt/libgcrypt-1.6.2.tar.bz2'
+	    hash="sha256:de084492a6b38cdb27b67eaf749ceba76bf7029f63a9c0c3c1b05c88c9885c4c">
+	    <!-- was unable to compile because the test used an assembly not available to me.
+	         I disabled manually the AVX and AVX2 tests, so this code is not called and 
+	         stubbed the result to 0, which doesn't pass the & 0x6 test.
+	      -->
+	  <patch file="patch-libgcrypt-compile-error-no-such-instruction-xgetbv.patch"/>
+    </branch>
+    <dependencies>
+      <dep package="libgpg-error" />
+    </dependencies>
+  </autotools>
+   <autotools id="libgpg-error" autogen-sh="configure"
+	      supports-non-srdir-builds="no">
+    <branch repo='ftp.gnupg.org' version='1.16'
+	    module="gcrypt/libgpg-error/libgpg-error-1.16.tar.bz2"
+	    hash="sha256:c2d437503cc4ab3ea27409874fc9bab9c74c6a066f9f24df7ee784cc7e2abb9b"/>
+  </autotools>
+   <autotools id="nettle" autogen-sh="autoreconf" autogen-args="-- --enable-shared --disable-openssl"
+	      supports-non-srdir-builds="no">
+    <branch repo='ftp.gnu.org' version='2.7.1'
+	    module="nettle/nettle-2.7.1.tar.gz"
+	    hash="sha256:bc71ebd43435537d767799e414fce88e521b7278d48c860651216e1fc6555b40"/>
+	    <!-- requires gmp, which requires clang IIRC -->
+  </autotools>
+  <!-- }}} -->
+</moduleset>

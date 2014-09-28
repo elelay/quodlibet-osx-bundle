@@ -1,0 +1,97 @@
+# Quodlibet.app bundle
+
+This is a collection of files required to build Quodlibet.app :
+Quodlibet as a native GTK+ Quartz application for Mac OS X 10.6 and 10.7
+
+I used them to build on a 10.6 X86_64 machine.
+
+## Instructions:
+
+git clone into ```~/qlmymodules```
+
+copy ```dot_jhbuildrc-custom``` to ```~/.jhbuildrc-custom``` or better, merge my modifications to your config file
+
+```touch ~/.jhbuildrc-QL``` (empty file, but required)
+
+If you have MacPorts installed, you must ensure to remove it from the path,
+to only build against system libraries.
+It might also be a good idea to move it to some non standard location
+during the build: some configure scripts are a bit too clever and will use it even if it's not in the path.
+
+Follow instructions in http://live.gnome.org/GTK%2B/OSX/Building
+
+    export JHB=QL
+
+    jhbuild bootstrap
+
+edit gtk-osx.modules to comment out gtk-osx-javascript.modules (would give an error as soon as one tries to build meta-gtk-osx-bootstrap)
+
+    jhbuild build python
+
+    jhbuild build meta-gtk-osx-bootstrap
+
+    jhbuild build meta-gtk-osx-freetype
+(this is the key to getting pangoft2 and also fontconfig for librsvg)
+
+    jhbuild build python
+    jhbuild build meta-gtk-osx-gtk3
+    jhbuild build quodlibet
+
+
+## Bundling Quodlibet:
+
+These need to be modifiable, otherwise install-name-tool fails to
+rewrite paths to libraries in them
+
+    chmod u+w /Volumes/MAC2/QLGtkOSX/inst/lib/libreadline.6.3.dylib 
+    chmod u+w /Volumes/MAC2/QLGtkOSX/inst/lib/libpython2.7.dylib 
+
+install gtk-mac-bundler, following http://live.gnome.org/GTK%2B/OSX/Bundling
+
+    cd qlmymodules/quodlibet-bundle
+    jhbuild shell
+    ~/.local/bin/gtk-mac-bundler quodlibet.bundle && ./postproc.sh 
+
+produces Quodlibet.app in Desktop
+
+test by double-clicking on Quodlibet.app
+
+test by moving ```/Volumes/MAC2/QLGtkOSX/inst``` away and re-launching
+
+Issues:
+- none
+
+# Using Quodlibet.app
+
+## Supported audio types:
+
+FLAC, MIDI, MP3, MPEG-4 AAC,
+Monkey's Audio, Musepack, Ogg FLAC, Ogg Opus,
+Ogg Speex, Ogg Theora, Ogg Vorbis, SPC700,
+True Audio, VGM, WAVE, WavPack,
+Windows Media Audio
+
+## Plugins
+
+Following plugins are not loading.
+
+  - easy:
+   - cddb
+   - crossfeed (gstreamer plugin missing)
+   - fingerprint (gstreamer plugin missing)
+   - kakasi
+   - mediaserver (dbus)
+   - mpris (dbus)
+   - pitch (gstreamer plugin missing)
+  - hard/impossible:
+   - auto_library_update
+   - gajim-status
+   - inhibit
+   - lastfm (missing libsoup, which is a pain to build)
+   - musicbrainz (missing libsoup)
+   - notify (dbus)
+   - osxmmkey (build AppKit? have to look into it)
+   - screensaved (dbus)
+   - searchprovider (dbus)
+   - telepathy_status (dbus + telepathy)
+   - zeitgeist_client (zeigeist on osx ???)

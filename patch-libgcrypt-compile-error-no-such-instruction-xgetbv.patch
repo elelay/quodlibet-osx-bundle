@@ -1,0 +1,36 @@
+--- src/hwf-x86.c.old	2014-09-27 18:44:25.000000000 +0200
++++ src/hwf-x86.c	2014-09-27 18:44:37.000000000 +0200
+@@ -99,15 +99,7 @@
+ static unsigned int
+ get_xgetbv(void)
+ {
+-  unsigned int t_eax;
+-
+-  asm volatile
+-    ("xgetbv\n\t"
+-     : "=a" (t_eax)
+-     : "c" (0)
+-    );
+-
+-  return t_eax;
++  return 0;
+ }
+ 
+ #endif /* i386 && GNUC */
+@@ -148,15 +140,7 @@
+ static unsigned int
+ get_xgetbv(void)
+ {
+-  unsigned int t_eax;
+-
+-  asm volatile
+-    ("xgetbv\n\t"
+-     : "=a" (t_eax)
+-     : "c" (0)
+-    );
+-
+-  return t_eax;
++  return 0;
+ }
+ 
+ #endif /* x86-64 && GNUC */
