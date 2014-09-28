@@ -4,7 +4,7 @@
 <moduleset>
  <!-- I use the definitions pulled by gtk-osx-setup.sh (stable branch)
       otherwise some packages fail -->
-    <include href="../../../Volumes/MAC2/QLGtkOSX/jhbuild/modulesets/gtk-osx.modules"/>
+    <include href="modulesets/gtk-osx.modules"/>
 
   <repository type="git" name="svn.gnome.org"
       href="git://git.gnome.org/">
@@ -25,7 +25,7 @@
   <repository type="tarball" name="ftp.gnome.org"
               href="http://ftp.gnome.org/pub/GNOME/sources/"/>
   <repository type="tarball" name="mutagen"
-              href="http://mutagen.googlecode.com/files/"/>
+              href="https://bitbucket.org/lazka/mutagen/downloads/"/>
   <repository type="tarball" name="quodlibet"
               href="https://bitbucket.org/lazka/quodlibet-files/src/23d4d64783957e413184f39db1beeb1e5db13a04/releases/"/>
   <repository type="tarball" name="entropywave"
@@ -68,7 +68,7 @@
 
   <distutils id="setuptools">
     <branch repo="pypi" checkoutdir="setuptools-0.6c11" module="s/setuptools/setuptools-0.6c11.tar.gz"
-	    version="4.1" md5sum="7df2a529a074f613b509fb44feefe74e"/>
+	    version="0.6c11" md5sum="7df2a529a074f613b509fb44feefe74e"/>
   </distutils>
 
   <distutils id="feedparser">
@@ -80,8 +80,8 @@
   </distutils>
 
   <distutils id="mutagen">
-    <branch repo="mutagen" checkoutdir="mutagen-1.21" module="http://mutagen.googlecode.com/files/mutagen-1.21.tar.gz"
-	    version="1.21"/>
+    <branch repo="mutagen" checkoutdir="mutagen-1.24" module="mutagen-1.24.tar.gz"
+	    version="1.24"/>
     <dependencies>
     <dep package="setuptools"/>
     </dependencies>
@@ -94,16 +94,6 @@
     <dep package="setuptools"/>
     </dependencies>
   </distutils>
-
-  <autotools id="shared-mime-info"  autogen-sh="configure"
-             supports-non-srcdir-builds="no" >
-    <branch module="shared-mime-info-0.90.tar.bz2" version="0.90"
-            repo="hadess"/>
-    <dependencies>
-      <dep package="intltool"/>
-      <dep package="glib"/>
-    </dependencies>
-  </autotools>
 
   <!-- {{{ recent gtk -->
   <autotools id="gtk+-3.0" autogen-sh="autogen.sh"

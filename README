@@ -24,17 +24,21 @@ Follow instructions in http://live.gnome.org/GTK%2B/OSX/Building
 
     jhbuild bootstrap
 
-edit gtk-osx.modules to comment out gtk-osx-javascript.modules (would give an error as soon as one tries to build meta-gtk-osx-bootstrap)
-
     jhbuild build python
 
     jhbuild build meta-gtk-osx-bootstrap
 
+    jhbuild build gtk-doc
+(builds a newer version of gtk-doc for glib)
+
     jhbuild build meta-gtk-osx-freetype
 (this is the key to getting pangoft2 and also fontconfig for librsvg)
 
-    jhbuild build python
     jhbuild build meta-gtk-osx-gtk3
+
+    jhbuild buildone -f bison
+(builds a newer version of bison for gstreamer)
+
     jhbuild build quodlibet
 
 
@@ -49,8 +53,9 @@ rewrite paths to libraries in them
 install gtk-mac-bundler, following http://live.gnome.org/GTK%2B/OSX/Bundling
 
     cd qlmymodules/quodlibet-bundle
+    export JHB=QL
     jhbuild shell
-    ~/.local/bin/gtk-mac-bundler quodlibet.bundle && ./postproc.sh 
+    gtk-mac-bundler quodlibet.bundle && ./postproc.sh 
 
 produces Quodlibet.app in Desktop
 
@@ -60,6 +65,13 @@ test by moving ```/Volumes/MAC2/QLGtkOSX/inst``` away and re-launching
 
 Issues:
 - none
+
+## Releasing
+    cd qlmymodules/quodlibet-bundle
+    ./release.sh ~/Desktop/Quodlibet.app X.Y.Z_buildnr
+
+where ```X.Y.Z``` is QuodLibet's version and ```buildnr``` is
+the bundle version, incremented at each release of the same version.
 
 # Using Quodlibet.app
 
