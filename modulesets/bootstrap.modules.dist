@@ -1,0 +1,91 @@
+<?xml version="1.0" standalone="no"?> <!--*- mode: nxml -*-->
+<?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
+<moduleset>
+  <repository type="tarball" name="ftp.gnu.org"
+      href="ftp://ftp.gnu.org/gnu/"/>
+  <repository type="tarball" name="pkgconfig"
+      href="http://pkgconfig.freedesktop.org/releases/"/>
+  <repository type="tarball" name="python"
+      href="http://www.python.org/ftp/python/"/>
+  <repository type="tarball" name="sourceforge"
+      href="http://dfn.dl.sourceforge.net/sourceforge/"/>
+  <repository type="tarball" name="tukaani.org"
+      href="http://tukaani.org/"/>
+
+  <autotools id="gettext" autogen-sh="configure">
+    <branch repo="ftp.gnu.org"
+	    module="gettext/gettext-0.18.1.1.tar.gz" version="0.18.1.1"
+            size="15139737" md5sum="3dd55b952826d2b32f51308f2f91aa89">
+    </branch>
+  </autotools>
+
+  <autotools id="m4" autogen-sh="configure">
+    <branch repo="ftp.gnu.org"
+	    module="m4/m4-1.4.11.tar.bz2" version="1.4.11"
+	    size="928910" md5sum="96ec473c2a6f203976c028e896a01b28" />
+  </autotools>
+
+  <autotools id="autoconf" autogen-sh="configure">
+    <branch repo="ftp.gnu.org"
+            module="autoconf/autoconf-2.68.tar.bz2" version="2.68"
+            size="1381988" md5sum="864d785215aa60d627c91fcb21b05b07"
+            hash="sha256:c491fb273fd6d4ca925e26ceed3d177920233c76d542b150ff35e571454332c8" />
+    <dependencies>
+      <dep package="m4"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="libtool" autogen-sh="configure">
+    <branch repo="ftp.gnu.org"
+            module="libtool/libtool-2.4.2.tar.xz" version="2.4.2"
+            size="868760" md5sum="2ec8997e0c07249eb4cbd072417d70fe"
+            hash="sha256:1d7b6862c1ed162e327f083a6f78f40eae29218f0db8c38393d61dab764c4407"
+            checkoutdir="libtool-2.4.2">
+    </branch>
+  </autotools>
+
+  <autotools id="automake-1.10" autogen-sh="configure">
+    <branch repo="ftp.gnu.org"
+            module="automake/automake-1.10.3.tar.bz2" version="1.10.3"
+            size="957505" md5sum="b8e67fb458da396bc35555af7ef2b49f" />
+  </autotools>
+  <autotools id="automake" autogen-sh="configure">
+    <branch repo="ftp.gnu.org"
+            module="automake/automake-1.11.3.tar.xz" version="1.11.3"
+            hash="sha256:f9e0be260c24ef61223fe961ba830fe46afc421fc0edf3864dbc88b5de36a529"
+            size="1076640"/>
+  </autotools>
+
+  <autotools id="pkg-config" autogen-sh="configure">
+    <branch repo="pkgconfig"
+            module="pkg-config-0.25.tar.gz" version="0.25"
+            size="988899" md5sum="a3270bab3f4b69b7dc6dbdacbcae9745" />
+  </autotools>
+
+  <autotools id="python" autogenargs="--enable-shared" autogen-sh="configure">
+    <pkg-config>python-2.7.pc</pkg-config>
+    <branch repo="python"
+            module="2.7.2/Python-2.7.2.tar.xz"
+            version="2.7.2"
+            hash="sha256:5d1e184869304431da59d065fe0cfe19718ed014f026bb28277dd2180f39961c"
+            size="9936152">
+    </branch>
+  </autotools>
+
+  <autotools id="xz">
+    <branch repo="tukaani.org" module="xz/xz-5.0.1.tar.bz2" version="5.0.1"
+            size="1005959" md5sum="cb6c7a58cec4d663a395c54d186ca0c6"
+            hash="sha256:9b380f502d37085a60821484a3a13747454638927cc36033be64970512451ed8"/>
+  </autotools>
+
+  <metamodule id="meta-bootstrap">
+    <dependencies>
+      <dep package="gettext" />
+      <dep package="autoconf" />
+      <dep package="libtool" />
+      <dep package="automake" />
+      <dep package="pkg-config" />
+    </dependencies>
+  </metamodule>
+
+</moduleset>
