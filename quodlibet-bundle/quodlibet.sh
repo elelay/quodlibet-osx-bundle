@@ -19,9 +19,6 @@ export GTK_DATA_PREFIX="$bundle_res"
 export GTK_EXE_PREFIX="$bundle_res"
 export GTK_PATH="$bundle_res"
 
-#FIXME: not working for gtk3
-# see https://mail.gnome.org/archives/gtk-list/2011-March/msg00108.html
-export GTK2_RC_FILES="$bundle_etc/gtk-3.0/gtkrc"
 export GTK_IM_MODULE_FILE="$bundle_etc/gtk-3.0/gtk.immodules"
 # comment following line and you won't see the quodlibet icon in the about dialog
 export GDK_PIXBUF_MODULE_FILE="$bundle_etc/gtk-3.0/gdk-pixbuf.loaders"

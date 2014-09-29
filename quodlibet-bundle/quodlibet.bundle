@@ -250,8 +250,8 @@
        theme of choice if they provide and example, or you can just
        change the source path. -->
 
-  <data dest="${bundle}/Contents/Resources/etc/${gtkdir}/gtkrc">
-    ${project}/gtkrc
+  <data dest="${bundle}/Contents/Resources/etc/${gtkdir}/settings.ini">
+    ${project}/settings.ini
   </data>
 
   <!-- Icon themes to copy. The "icons" property can be either of
