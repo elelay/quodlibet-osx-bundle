@@ -265,7 +265,7 @@
   -->
   <!-- must say all to get icons at bottom left of paned browser -->
   <icon-theme icons="all">
-    gnome
+    Adwaita
   </icon-theme>
 
   <!-- gPodder icon in the about dialog (gpodder.icon_file initialised in gpodder script) -->

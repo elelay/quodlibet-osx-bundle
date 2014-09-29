@@ -23,6 +23,12 @@ my $bundleResources="$ARGV[0]/Contents/Resources";
 
 usage(-1,"$bundleResources is not a directory\n") unless -d $bundleResources;
 
+my @generated = ('/etc/gtk-3.0/gdk-pixbuf.loaders',
+	             '/etc/gtk-3.0/gtk.immodules',
+	             '/etc/gtk-3.0/settings.ini',
+	             '/etc/pango/pango.modules',
+	             '/etc/pango/pangorc',
+	             '/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache');
 
 my @files= `find "$bundleResources"`;
 
@@ -34,6 +40,7 @@ foreach my $file (@files) {
 	next if -d $file;
 	my $short = $file;
 	$short =~ s/$bundleResources//;
+	next if grep {$_ eq $short} @generated;
 	my $inst = "$gtk_inst$short";
 	my @pkgs = `grep -Rl "$inst" "$manifests"`;
 	@pkgs = map { chomp; $_ =~ s,$manifests/,,; $_ } @pkgs;

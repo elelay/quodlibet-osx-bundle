@@ -98,9 +98,10 @@
   <!-- {{{ recent gtk -->
   <autotools id="gtk+-3.0" autogen-sh="autogen.sh"
              autogenargs="--enable-quartz-backend --enable-quartz-relocation --disable-cloudprint">
-    <branch repo="ftp.gnome.org" module="gtk+/3.12/gtk+-3.12.2.tar.xz" version="3.12.2"
-            hash="sha256:61d74eea74231b1ea4b53084a9d6fc9917ab0e1d71b69d92cbf60a4b4fb385d0">
+    <branch repo="ftp.gnome.org" module="gtk+/3.14/gtk+-3.14.0.tar.xz" version="3.14.0"
+            hash="sha256:68d6b57d15c16808d0045e96b303f3dd439cc22a9c06fdffb07025cd713a82bc">
       <patch file="https://trac.macports.org/raw-attachment/ticket/43283/patch-backingScaleFactor.diff"/>
+      <patch file="http://trac.macports.org/export/125926/trunk/dports/gnome/gtk3/files/patch-disable-native-full-screen-support.diff"/>
     </branch>
     <dependencies>
       <dep package="glib"/>
@@ -115,8 +116,8 @@
   </autotools>
 
   <autotools id="glib" autogen-sh="autoreconf" autogenargs="--disable-gtk-doc">
-    <branch repo="ftp.gnome.org" module="glib/2.40/glib-2.40.2.tar.xz"  version="2.40.2"
-            hash="sha256:e8ff8af2950897e805408480c454c415d1eade4e670ec5fb507f5e5853726c7a">
+    <branch repo="ftp.gnome.org" module="glib/2.42/glib-2.42.0.tar.xz"  version="2.42.0"
+            hash="sha256:94fbc0a7d10633433ff383e540607de649c1b46baaa59dea446a50977a6c4472">
       <patch file="http://git.gnome.org/browse/gtk-osx/plain/patches/0001-Bug-724590-GSlice-slab_stack-corruption.patch" strip="1"/>
     </branch>
     <dependencies>
@@ -128,8 +129,8 @@
   </autotools>
 
  <autotools id="atk" autogen-sh="configure">
-    <branch repo="ftp.gnome.org" module="atk/2.12/atk-2.12.0.tar.xz" version="2.12.0"
-            hash="sha256:48a8431974639c5a59c24fcd3ece1a19709872d5dfe78907524d9f5e9993f18f"/>
+    <branch repo="ftp.gnome.org" module="atk/2.14/atk-2.14.0.tar.xz" version="2.14.0"
+            hash="sha256:2875cc0b32bfb173c066c22a337f79793e0c99d2cc5e81c4dac0d5a523b8fbad"/>
     <dependencies>
     </dependencies>
     <after>
@@ -138,14 +139,30 @@
     </after>
   </autotools>
    <autotools id="pygobject3" autogen-sh="configure" >
-    <branch repo="ftp.gnome.org" version="3.12.2" module="pygobject/3.12/pygobject-3.12.2.tar.xz"
-            hash="sha256:7e7a3d349acf5bb4b68f8539a42e67958840a67cd4f0341ee9aa49189af2a522"/>
+    <branch repo="ftp.gnome.org" version="3.14.0" module="pygobject/3.14/pygobject-3.14.0.tar.xz"
+            hash="sha256:779effa93f4b59cdb72f4ab0128fb3fd82900bf686193b570fd3a8ce63392d54">
+      <patch file="patch-pygobject3-compile-error-previous-definition-typedef.patch"/>
+    </branch>
     <dependencies>
       <dep package="meta-gtk-osx-gtk3"/>
     </dependencies>
     <after>
       <dep package="python"/>
       <dep package="python3"/>
+    </after>
+  </autotools>
+  <autotools id="pango"  autogen-sh="autoreconf">
+    <branch repo="ftp.gnome.org" version="1.36.8" module="pango/1.36/pango-1.36.8.tar.xz"
+            hash="sha256:18dbb51b8ae12bae0ab7a958e7cf3317c9acfc8a1e1103ec2f147164a0fc2d07">
+    </branch>
+    <dependencies>
+      <dep package="cairo"/>
+     </dependencies>
+    <after>
+      <dep package="gobject-introspection"/>
+      <dep package="meta-gtk-osx-freetype"/>
+      <dep package="glib"/>
+      <dep package="meta-gtk-osx-bootstrap"/>
     </after>
   </autotools>
   
@@ -169,11 +186,19 @@
   </autotools>
   <autotools id="gnome-themes-standard" autogen-sh="configure"
 	    autogenargs='--disable-gtk2-engine'>
-    <branch repo="ftp.gnome.org" module="gnome-themes-standard/3.12/gnome-themes-standard-3.12.0.tar.xz"
-            version="3.12.0" hash="sha256:a05d1b7ca872b944a69d0c0cc2369408ece32ff4355e37f8594a1b70d13c3217"/>
+    <branch repo="ftp.gnome.org" module="gnome-themes-standard/3.14/gnome-themes-standard-3.14.0.tar.xz"
+            version="3.14.0" hash="sha256:addd469f4ba746f8ebb03da8b5c67b7d8b6b2c979f7f07958455c7e33fbdbe09"/>
     <dependencies>
       <dep package="librsvg"/>
       <dep package="gnome-icon-theme"/>
+    </dependencies>
+  </autotools>
+  <autotools id="adwaita-icon-theme" autogen-sh="configure">
+    <branch repo="ftp.gnome.org" module="adwaita-icon-theme/3.14/adwaita-icon-theme-3.14.0.tar.xz"
+            version="3.14.0" hash="sha256:afacb6025a18be007e33a9663b92cee9d2745279bb00107a68e09b2806f9541f"/>
+    <dependencies>
+      <dep package="hicolor-icon-theme"/>
+      <dep package="icon-naming-utils"/>
     </dependencies>
   </autotools>
   <!-- }}} -->
