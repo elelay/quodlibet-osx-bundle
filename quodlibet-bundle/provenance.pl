@@ -28,7 +28,10 @@ my @generated = ('/etc/gtk-3.0/gdk-pixbuf.loaders',
 	             '/etc/gtk-3.0/settings.ini',
 	             '/etc/pango/pango.modules',
 	             '/etc/pango/pangorc',
-	             '/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache');
+	             '/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache',
+	             '/share/glib-2.0/schemas/gschemas.compiled',
+	             '/share/icons/Adwaita/icon-theme.cache',
+	             '/share/icons/hicolor/icon-theme.cache',);
 
 my @files= `find "$bundleResources"`;
 
