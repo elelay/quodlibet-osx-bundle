@@ -23,20 +23,22 @@ else
 	shift
 fi
 
-zip="${app%.app}-$version.zip"
+d=$(dirname "$app")
+zip=$(basename "${app%.app}-$version.zip")
+cd "$d"
 if [ -f "$zip" ] ; then
-	echo "$zip already exists!"
+	echo "$d/$zip already exists!"
 	exit -1
 fi
-echo "Creating $zip..."
-zip -rq "$zip" "$app"
+echo "Creating $d/$zip..."
+zip -rq "$zip" $(basename "$app")
 
 echo "Checksumming..."
-(cd $(dirname "$zip") && shasum -a256 $(basename "$zip")) > "$zip.sha256"
-(cd $(dirname "$zip") && md5 $(basename "$zip")) > "$zip.md5"
+shasum -a256 "$zip" > "$zip.sha256"
+md5 "$zip" > "$zip.md5"
 
 echo "Compressing contents..."
-contents="${app%.app}.contents"
+contents=$(basename "${app%.app}.contents")
 bzip2 -c "$contents" > "$contents-$version.bz2"
 
 echo "Done"

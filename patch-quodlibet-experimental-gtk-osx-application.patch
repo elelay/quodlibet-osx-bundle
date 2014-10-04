@@ -16,13 +16,12 @@
      Gtk.main()
 --- quodlibet/qltk/quodlibetwindow.py.old	2014-08-16 20:28:32.000000000 +0200
 --- quodlibet/qltk/quodlibetwindow.py	2014-08-16 20:28:32.000000000 +0200
-@@ -382,6 +382,24 @@
+@@ -382,6 +382,23 @@
          accel_group = ui.get_accel_group()
          self.add_accel_group(accel_group)
  
 +        # BEGIN MAC OS X STUFF
 +        menu = ui.get_widget("/Menu")
-+        print("menu: {}".format(menu))
 +        from gi.repository import GtkosxApplication as gtkosx
 +        self.macapp = gtkosx.Application()
 +
@@ -50,7 +49,7 @@
  
          # get the playlist up before other stuff
          self.songlist = MainSongList(library, player)
-@@ -680,7 +698,7 @@
+@@ -680,13 +698,13 @@
          actions = [
              ('Music', None, _("_Music")),
              ('AddFolders', Gtk.STOCK_ADD, _('_Add a Folder...'),
@@ -59,6 +58,13 @@
              ('AddFiles', Gtk.STOCK_ADD, _('_Add a File...'),
               None, None, self.open_chooser),
              ('AddLocation', Gtk.STOCK_ADD, _('_Add a Location...'),
+              None, None, self.open_location),
+             ('BrowseLibrary', Gtk.STOCK_FIND, _('Open _Browser'), ""),
+-            ("Preferences", Gtk.STOCK_PREFERENCES, None, None, None,
++            ("Preferences", Gtk.STOCK_PREFERENCES, None, '<meta>comma', None,
+              self.__preferences),
+             ("Plugins", Gtk.STOCK_EXECUTE, _("_Plugins"), None, None,
+              self.__plugins),
 @@ -709,7 +727,7 @@
               self.__current_song_info),
  
@@ -73,15 +79,15 @@
  
          actions.append(("Previous", Gtk.STOCK_MEDIA_PREVIOUS, None,
 -                        "<control>comma", None, self.__previous_song))
-+                        "<meta>comma", None, self.__previous_song))
++                        "<ctrl>comma", None, self.__previous_song))
  
          actions.append(("PlayPause", Gtk.STOCK_MEDIA_PLAY, None,
 -                        "<control>space", None, self.__play_pause))
-+                        "<meta>space", None, self.__play_pause))
++                        "<ctrl>space", None, self.__play_pause))
  
          actions.append(("Next", Gtk.STOCK_MEDIA_NEXT, None,
 -                        "<control>period", None, self.__next_song))
-+                        "<meta>period", None, self.__next_song))
++                        "<ctrl>period", None, self.__next_song))
  
          ag.add_actions(actions)
  
@@ -100,6 +106,15 @@
  
          act = Gtk.Action.new("About", None, None, Gtk.STOCK_ABOUT)
          act.connect_object('activate', self.__show_about, player)
+@@ -753,7 +771,7 @@
+         act = Gtk.Action.new(
+             "OnlineHelp", _("Online Help"), None, Gtk.STOCK_HELP)
+         act.connect_object('activate', util.website, const.ONLINE_HELP)
+-        ag.add_action_with_accel(act, "F1")
++        ag.add_action_with_accel(act, "<meta>question")
+ 
+         act = Gtk.Action.new("SearchHelp", _("Search Help"), None, "")
+         act.connect_object('activate', util.website, const.SEARCH_HELP)
 @@ -781,7 +799,7 @@
              act = Gtk.Action.new("Random%s" % util.capitalize(tag_), label,
                                   None, Gtk.STOCK_DIALOG_QUESTION)
@@ -109,4 +124,3 @@
  
          ag.add_toggle_actions([
              ("SongList", None, _("Song _List"), None, None,
-
