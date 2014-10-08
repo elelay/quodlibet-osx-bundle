@@ -186,7 +186,16 @@
   <data>${prefix}/lib/python2.7/site-packages/musicbrainz2</data>
   <data>${prefix}/lib/python2.7/site-packages/mutagen</data>
   <data>${prefix}/lib/python2.7/site-packages/quodlibet</data>
-	
+  <!-- pyObjC -->
+  <data>${prefix}/lib/python2.7/distutils</data>
+  <data>${prefix}/lib/python2.7/site-packages/pkg_resources.py</data>
+  <data>${prefix}/lib/python2.7/site-packages/AppKit</data>
+  <data>${prefix}/lib/python2.7/site-packages/Cocoa</data>
+  <data>${prefix}/lib/python2.7/site-packages/CoreFoundation</data>
+  <data>${prefix}/lib/python2.7/site-packages/Foundation</data>
+  <data>${prefix}/lib/python2.7/site-packages/objc</data>
+  <data>${prefix}/lib/python2.7/site-packages/Quartz</data>
+
 
   <binary>
     ${prefix}/lib/python2.7/lib-dynload/*.so
@@ -201,9 +210,42 @@
   <binary>
     ${prefix}/lib/python2.7/site-packages/gi/*.so
   </binary>
-  <!--<binary>
-    ${prefix}/lib/python2.7/site-packages/gtkosx_application/*.so
-  </binary>-->
+  <binary>
+    ${prefix}/lib/python2.7/site-packages/AppKit/*.so
+  </binary>
+  <binary>
+    ${prefix}/lib/python2.7/site-packages/CoreFoundation/*.so
+  </binary>
+  <binary>
+    ${prefix}/lib/python2.7/site-packages/Foundation/*.so
+  </binary>
+  <binary>
+    ${prefix}/lib/python2.7/site-packages/Quartz/CoreGraphics/*.so
+  </binary>
+  <binary>
+    ${prefix}/lib/python2.7/site-packages/Quartz/CoreVideo/*.so
+  </binary>
+  <binary>
+    ${prefix}/lib/python2.7/site-packages/Quartz/ImageIO/*.so
+  </binary>
+  <binary>
+    ${prefix}/lib/python2.7/site-packages/Quartz/ImageKit/*.so
+  </binary>
+  <binary>
+    ${prefix}/lib/python2.7/site-packages/Quartz/PDFKit/*.so
+  </binary>
+  <binary>
+    ${prefix}/lib/python2.7/site-packages/Quartz/QuartzComposer/*.so
+  </binary>
+  <binary>
+    ${prefix}/lib/python2.7/site-packages/Quartz/QuartzCore/*.so
+  </binary>
+  <binary>
+    ${prefix}/lib/python2.7/site-packages/Quartz/QuartzFilters/*.so
+  </binary>
+  <binary>
+    ${prefix}/lib/python2.7/site-packages/Quartz/QuickLookUI/*.so
+  </binary>
 
   <data>
     ${prefix}/share/gir-1.0

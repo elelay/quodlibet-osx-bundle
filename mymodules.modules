@@ -44,13 +44,13 @@
           href="http://ftp.musicbrainz.org/pub/musicbrainz/"/>
   <repository type="tarball" name="hadess"
               href="http://freedesktop.org/~hadess/"/>
+  <repository type="hg" name="elelay/quodlibet"
+              href="https://elelay@bitbucket.org/elelay/quodlibet"/>
 
 
-  <distutils id="quodlibet">
-    <branch repo="quodlibet" module="a7d31d321073050b6123dbd4d030e86874b67156/releases/quodlibet-3.2.2.tar.gz" version="3.2.2"
-            checkoutdir="quodlibet-3.2.2" hash="sha256:ad2ebf375e1ce7e8cee0bb85c3e58100d82bdec13b3fcf9b7e2210d506e025fa">
-      <patch file="https://trac.macports.org/export/125865/trunk/dports/python/quodlibet/files/patch-de134e03-fix_normalize_darwin_path.diff"/>
-      <patch file="patch-quodlibet-experimental-gtk-osx-application.patch"/>
+  <distutils id="quodlibet" supports-non-srcdir-builds="no" subdir="quodlibet">
+    <branch repo="elelay/quodlibet" module="quodlibet/quodlibet"
+            checkoutdir="quodlibet-elelay">
     </branch>
     <dependencies>
       <dep package="liborc"/>
@@ -95,6 +95,43 @@
     <dep package="setuptools"/>
     </dependencies>
   </distutils>
+
+  <!-- {{{ pyObjc, for osxmmkey plugin -->
+  <distutils id="pyobjc-core">
+    <branch repo="pypi" checkoutdir="pyobjc-core-3.0.1" module="p/pyobjc-core/pyobjc-core-3.0.1.tar.gz"
+	    version="3.0.1" md5sum="f40f96460eac67554751a9e3e8bbdcef"/>
+    <dependencies>
+    <dep package="setuptools"/>
+    </dependencies>
+  </distutils>
+  <distutils id="pyobjc-framework-Cocoa">
+    <branch repo="pypi" checkoutdir="pyobjc-framework-Cocoa-3.0.1" module="p/pyobjc-framework-Cocoa/pyobjc-framework-Cocoa-3.0.1.tar.gz"
+	    version="3.0.1" md5sum="a8eb4d7cbc181d990808372c980dabb1"/>
+    <dependencies>
+    <dep package="setuptools"/>
+    <dep package="pyobjc-core"/>
+    </dependencies>
+  </distutils>
+  <distutils id="pyobjc-framework-Quartz">
+    <branch repo="pypi" checkoutdir="pyobjc-framework-Quartz-3.0.1" module="p/pyobjc-framework-Quartz/pyobjc-framework-Quartz-3.0.1.tar.gz"
+	    version="3.0.1" md5sum="9fb36fe671976b78048bd14e0b3813f5"/>
+    <dependencies>
+    <dep package="setuptools"/>
+    <dep package="pyobjc-core"/>
+    <dep package="pyobjc-framework-Cocoa"/>
+    </dependencies>
+  </distutils>
+  <distutils id="pyobjc">
+    <branch repo="pypi" checkoutdir="pyobjc-3.0.1" module="p/pyobjc/pyobjc-3.0.1.tar.gz"
+	    version="3.0.1" md5sum="5841ba8a540b1da2ba4684b513ff5dbd"/>
+    <dependencies>
+    <dep package="setuptools"/>
+    <dep package="pyobjc-core"/>
+    <dep package="pyobjc-framework-Cocoa"/>
+    <dep package="pyobjc-framework-Quartz"/>
+    </dependencies>
+  </distutils>
+  <!-- }}} -->
 
   <!-- {{{ recent gtk -->
   <autotools id="gtk+-3.0" autogen-sh="autogen.sh"
