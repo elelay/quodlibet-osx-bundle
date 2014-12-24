@@ -176,4 +176,4 @@ export PYTHONHOME
 
 #Note that we're calling $PYTHON here to override the version in
 #pygtk-demo's shebang.
-$EXEC $PYTHON "$bundle_contents/Resources/bin/quodlibet" $*
+$EXEC "$PYTHON" "$bundle_contents/Resources/bin/quodlibet" $*
