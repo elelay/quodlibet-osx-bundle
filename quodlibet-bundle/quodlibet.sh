@@ -174,6 +174,11 @@ echo "PYTHONPATH=$PYTHONPATH"
 PYTHONHOME="$bundle_res"
 export PYTHONHOME
 
+# temporary disable multimedia keys
+export QUODLIBET_NO_MMKEYS=yes
+# temporary disable tooltips
+export QUODLIBET_NO_HINTS=yes
+
 #Note that we're calling $PYTHON here to override the version in
 #pygtk-demo's shebang.
 $EXEC "$PYTHON" "$bundle_contents/Resources/bin/quodlibet" $*

@@ -53,7 +53,10 @@
 
   <distutils id="quodlibet" supports-non-srcdir-builds="no" subdir="quodlibet">
     <branch repo="lazka/quodlibet" module="quodlibet/quodlibet"
-            checkoutdir="quodlibet-lazka">
+            checkoutdir="quodlibet-lazka" version="lazka-1f993fb">
+            <!-- WARNING VERSION IS INFORMATIVE ONLY: hg update is being called anyway
+                 It's used by quodlibet-bundle/info-plist.xsl
+              -->
     </branch>
     <dependencies>
       <dep package="liborc"/>
