@@ -51,7 +51,28 @@
   <repository type="tarball" name="sqlite" href="http://www.sqlite.org/"/>
 
 
-  <distutils id="quodlibet" supports-non-srcdir-builds="no" subdir="quodlibet">
+  <distutils id="quodlibet" supports-non-srcdir-builds="no">
+    <branch repo="quodlibet" module="1c15a349cf08ec88c5689e5fff24be3925fbc313/releases/quodlibet-3.3.0.tar.gz"
+            checkoutdir="quodlibet" version="3.3.0"
+            hash="732e2746b8b031d0cbe5107f263efe2738484ca60d76fb2670de21b23a8e055e">
+    </branch>
+    <dependencies>
+      <dep package="liborc"/>
+      <dep package="gstreamer-1.0"/>
+      <dep package="gst-plugins-base-1.0"/>
+      <dep package="gst-plugins-good-1.0"/>
+      <dep package="gst-plugins-ugly-1.0"/>
+      <dep package="mutagen" />
+      <dep package="feedparser" />
+      <dep package="musicbrainz2" />
+      <dep package="meta-gtk-osx-python-gtk3"/>
+      <dep package="pyobjc"/>
+      <!--  not necessary ? -->
+      <dep package="shared-mime-info" />
+    </dependencies>
+  </distutils>
+
+  <distutils id="quodlibet-trunk" supports-non-srcdir-builds="no" subdir="quodlibet">
     <branch repo="lazka/quodlibet" module="quodlibet/quodlibet"
             checkoutdir="quodlibet-lazka" version="lazka-1f993fb">
             <!-- WARNING VERSION IS INFORMATIVE ONLY: hg update is being called anyway
