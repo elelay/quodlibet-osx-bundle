@@ -161,7 +161,7 @@
   </distutils>
   <!-- }}} -->
 
-  <!-- {{{ recent gtk -->
+  <!-- {{{ recent gtk gtk-osx.modules is at 3.14.5 -->
   <autotools id="gtk+-3.0" autogen-sh="autogen.sh"
              autogenargs="--enable-quartz-backend --enable-quartz-relocation --disable-cloudprint">
     <branch repo="ftp.gnome.org" module="gtk+/3.14/gtk+-3.14.6.tar.xz" version="3.14.6"
@@ -178,7 +178,7 @@
       <dep package="meta-gtk-osx-bootstrap"/>
     </after>
   </autotools>
-
+  <!-- FIXME: in new gtk-osx.modules -->
   <autotools id="glib" autogen-sh="autoreconf" autogenargs="--disable-gtk-doc">
     <branch repo="ftp.gnome.org" module="glib/2.42/glib-2.42.1.tar.xz"  version="2.42.1"
             hash="sha256:8f3f0865280e45b8ce840e176ef83bcfd511148918cc8d39df2ee89b67dcf89a">
@@ -192,6 +192,7 @@
     </after>
   </autotools>
 
+ <!-- FIXME: in new gtk-osx-bootstrap.modules -->
  <autotools id="atk" autogen-sh="configure">
     <branch repo="ftp.gnome.org" module="atk/2.14/atk-2.14.0.tar.xz" version="2.14.0"
             hash="sha256:2875cc0b32bfb173c066c22a337f79793e0c99d2cc5e81c4dac0d5a523b8fbad"/>
@@ -202,7 +203,7 @@
       <dep package="meta-gtk-osx-bootstrap"/>
     </after>
   </autotools>
-   <autotools id="pygobject3" autogen-sh="configure" >
+   <autotools id="pygobject3" autogen-sh="configure" > <!-- FIXME: in new gtk-osx-python.modules -->
     <branch repo="ftp.gnome.org" version="3.14.0" module="pygobject/3.14/pygobject-3.14.0.tar.xz"
             hash="sha256:779effa93f4b59cdb72f4ab0128fb3fd82900bf686193b570fd3a8ce63392d54">
       <patch file="patch-pygobject3-compile-error-previous-definition-typedef.patch"/>
@@ -215,6 +216,7 @@
       <dep package="python3"/>
     </after>
   </autotools>
+  <!-- FIXME: in new gtk-osx-bootstrap.modules -->
   <autotools id="pango"  autogen-sh="autoreconf">
     <branch repo="ftp.gnome.org" version="1.36.8" module="pango/1.36/pango-1.36.8.tar.xz"
             hash="sha256:18dbb51b8ae12bae0ab7a958e7cf3317c9acfc8a1e1103ec2f147164a0fc2d07">
@@ -230,14 +232,14 @@
     </after>
   </autotools>
 
-  <!-- for recent gtk-doc -->
+  <!-- for recent gtk-doc FIXME: in new gtk-osx-bootstrap.modules -->
   <autotools id="itstool"
          makeargs="-k -i" makeinstallargs="-k -i install"
 	     autogen-sh="configure">
     <branch repo="itstool" version="2.0.2" module="itstool-2.0.2.tar.bz2"
 	    hash="sha256:bf909fb59b11a646681a8534d5700fec99be83bb2c57badf8c1844512227033a"/>
   </autotools>
-
+  <!-- FIXME: in new gtk-osx-bootstrap.modules -->
   <autotools id="gtk-doc" autogenargs="--disable-scrollkeeper --with-xml-catalog=$JHBUILD_PREFIX/etc/xml/catalog"
 	     makeargs="-k -i" makeinstallargs="-k -i install"
 	     autogen-sh="configure">
@@ -248,6 +250,7 @@
       <dep package="itstool"/>
     </dependencies>
   </autotools>
+   <!-- gtk-osx-themes.modules is at 3.14.0 -->
   <autotools id="gnome-themes-standard" autogen-sh="configure"
 	    autogenargs='--disable-gtk2-engine'>
     <branch repo="ftp.gnome.org" module="gnome-themes-standard/3.14/gnome-themes-standard-3.14.2.tar.xz"
@@ -257,7 +260,7 @@
       <dep package="adwaita-icon-theme"/>
     </dependencies>
   </autotools>
-  <autotools id="adwaita-icon-theme" autogen-sh="configure">
+  <autotools id="adwaita-icon-theme" autogen-sh="configure"> <!-- FIXME: in new gtk-osx-bootstrap.modules -->
     <branch repo="ftp.gnome.org" module="adwaita-icon-theme/3.14/adwaita-icon-theme-3.14.1.tar.xz"
             version="3.14.1" hash="sha256:b776a7ad58c97f4c1ede316e44d8d054105429cb4e3a8ec46616a14b11df48ee"/>
     <dependencies>
@@ -267,7 +270,7 @@
   </autotools>
   <!-- }}} -->
 
-  <!-- for gstreamer Gst.gir -->
+  <!-- for gstreamer Gst.gir FIXME: in new gtk-osx.modules-->
   <autotools id="gobject-introspection" autogen-sh="configure">
     <branch repo="ftp.gnome.org" module="gobject-introspection/1.42/gobject-introspection-1.42.0.tar.xz"
             version="1.42.0"
@@ -283,7 +286,7 @@
     </after>
   </autotools>
 
-  <!-- {{{ recent gstreamer  -->
+  <!-- {{{ recent gstreamer  (still at 1.4.3 in gtk-osx-gstreamer.modules) -->
   <autotools id="gst-plugins-base-1.0" autogenargs="--disable-tests --disable-x --disable-xvideo" supports-non-srcdir-builds="no"
     makeargs="ERROR_CFLAGS=" autogen-sh="configure">
     <branch repo="ftp.gnome.org" module="gst-plugins-base/1.4/gst-plugins-base-1.4.4.tar.xz"
@@ -332,11 +335,11 @@
     </after>
   </autotools>
   <!-- for recent gstreamer -->
-  <autotools id="bison" autogen-sh="configure">
+  <autotools id="bison" autogen-sh="configure"> <!-- fixme is 3.0.2 ok ? -->
     <branch repo="ftp.gnu.org" module="bison/bison-2.6.3.tar.xz"
             version="2.6.3"/>
   </autotools>
-  <autotools id="liborc" autogen-sh="configure">
+  <autotools id="liborc" autogen-sh="configure"> <!-- FIXME: in new gtk-osx-gstreamer it's orc/ 0.4.22 in gstreamer repo -->
     <branch module="orc/orc-0.4.18.tar.gz"
 	    repo="entropywave" version="0.4.18"/>
   </autotools>
