@@ -52,9 +52,9 @@
 
 
   <distutils id="quodlibet" supports-non-srcdir-builds="no">
-    <branch repo="quodlibet" module="1c15a349cf08ec88c5689e5fff24be3925fbc313/releases/quodlibet-3.3.0.tar.gz"
-            checkoutdir="quodlibet" version="3.3.0"
-            hash="732e2746b8b031d0cbe5107f263efe2738484ca60d76fb2670de21b23a8e055e">
+    <branch repo="quodlibet" module="8e63d76fd0778166dcf3368901bf4e7175220fb6/releases/quodlibet-3.3.1.tar.gz"
+            checkoutdir="quodlibet" version="3.3.1"
+            hash="sha256:780c0f4cb5e0c097cbc429fb3166b89fbf28761e0f331e09a1cae3da28601b04">
     </branch>
     <dependencies>
       <dep package="liborc"/>
