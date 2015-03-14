@@ -17,7 +17,7 @@ find $app -name '*.so' -and -print -and  -exec sh -c 'otool -L $1 | grep /inst' 
 
 # Override the call to quodlibet with exfalso
 mv $app/Contents/MacOS/{Quodlibet,ExFalso}
-sed -i -e 's,bin/quodlibet,bin/exfalso,' $app/Contents/MacOS/ExFalso
+sed -e 's,APP=quodlibet,APP=exfalso,' -i "" $app/Contents/MacOS/ExFalso
 
 # exfalso icons
 rm $app/Contents/Resources/quodlibet.icns
