@@ -177,6 +177,7 @@
   <data>${prefix}/lib/python2.7/plat-darwin</data>
   <data>${prefix}/lib/python2.7/plat-mac</data>
   <data>${prefix}/lib/python2.7/sqlite3</data>
+  <data>${prefix}/lib/python2.7/unittest</data>
   <data>${prefix}/lib/python2.7/wsgiref</data>
   <data>${prefix}/lib/python2.7/xml</data>
   <!-- only required extra modules (no dbus, for instance) -->
