@@ -16,6 +16,9 @@
   <repository type="git" name="github"
       href="git://github.com/"/>
 
+  <repository type="tarball" name="sourceforge"
+		  href="http://iweb.dl.sf.net/project/"/>
+
   <!-- for setuptools, for feedparser -->
   <repository type="tarball" name="pypi"
               href="http://pypi.python.org/packages/source/"/>
@@ -74,7 +77,7 @@
 
   <distutils id="quodlibet-trunk" supports-non-srcdir-builds="no" subdir="quodlibet">
     <branch repo="lazka/quodlibet" module="quodlibet/quodlibet"
-            checkoutdir="quodlibet-lazka" version="lazka-1f993fb">
+            checkoutdir="quodlibet-lazka" version="lazka-b595e82">
             <!-- WARNING VERSION IS INFORMATIVE ONLY: hg update is being called anyway
                  It's used by quodlibet-bundle/info-plist.xsl
               -->
@@ -312,6 +315,86 @@
     </dependencies>
   </autotools>
 
+  <!-- gst-plugins-bad
+       Upstream: http://gstreamer.freedesktop.org/src/gst-plugins-bad/
+  -->
+  <autotools id="gst-plugins-bad-1.0" supports-non-srcdir-builds="no"
+             autogenargs="--disable-accurip
+    --disable-adpcmdec
+    --disable-adpcmenc
+    --disable-aiff
+    --disable-asfmux
+    --disable-audiofxbad
+    --disable-audiomixer
+    --disable-audiovisualizers
+    --disable-autoconvert
+    --disable-bayer
+    --disable-camerabin2
+    --disable-coloreffects
+    --disable-compositor
+    --disable-dataurisrc
+    --disable-debugutils
+    --disable-dvbsuboverlay
+    --disable-dvdspu
+    --disable-festival
+    --disable-fieldanalysis
+    --disable-freeverb
+    --disable-frei0r
+    --disable-gaudieffects
+    --disable-gdp
+    --disable-geometrictransform
+    --disable-id3tag
+    --disable-inter
+    --disable-interlace
+    --disable-ivfparse
+    --disable-ivtc
+    --disable-jp2kdecimator
+    --disable-jpegformat
+    --disable-librfb
+    --disable-liveadder
+    --disable-midi
+    --disable-mpegdemux
+    --disable-mpegpsmux
+    --disable-mpegtsdemux
+    --disable-mpegtsmux
+    --disable-mxf
+    --disable-pcapparse
+    --disable-pnm
+    --disable-rawparse
+    --disable-removesilence
+    --disable-sdp
+    --disable-segmentclip
+    --disable-siren
+    --disable-smooth
+    --disable-speed
+    --disable-stereo
+    --disable-subenc
+    --disable-videofilters
+    --disable-videoparsers
+    --disable-videosignal
+    --disable-vmnc
+    --disable-y4m
+    --disable-yadif
+    --disable-bz2
+    --disable-dash
+    --disable-decklink
+    --disable-gl
+    --disable-hls
+    --disable-rsvg
+    --disable-shm
+    --disable-smoothstreaming
+    --enable-cocoa=no --enable-x11=no --enable-opengl=no"
+             makeargs="ERROR_CFLAGS=" autogen-sh="configure">
+    <branch repo="gstreamer" version="1.4.4"
+            module="gst-plugins-bad/gst-plugins-bad-1.4.4.tar.xz"
+            hash="sha256:e41b36105c0a13a2cb1ff9f559714e839b82dc3841484cd664790fb7947e55c7"/>
+    <dependencies>
+      <dep package="gstreamer-1.0"/>
+      <dep package="gst-plugins-base-1.0"/>
+      <dep package="faad2"/>
+    </dependencies>
+  </autotools>
+
   <!-- gst-plugins-ugly
        Upstream: http://gstreamer.freedesktop.org/src/gst-plugins-ugly/
   -->
@@ -325,6 +408,7 @@
       <dep package="libmad"/>
     </dependencies>
   </autotools>
+
   <autotools id="gstreamer-1.0" autogenargs="--disable-tests" supports-non-srcdir-builds="no"
     makeargs="ERROR_CFLAGS=" autogen-sh="configure">
     <branch repo="ftp.gnome.org" module="gstreamer/1.4/gstreamer-1.4.4.tar.xz"
@@ -394,6 +478,18 @@
     <dependencies>
       <dep package="libogg"/>
     </dependencies>
+  </autotools>
+
+  <!-- MPEG4 AAC codec
+       Upstream: http://www.audiocoding.com/faad2.html
+       MacPorts: https://trac.macports.org/browser/trunk/dports/audio/faad2/Portfile
+  -->
+  <autotools id="faad2" autogen-sh="autoreconf"
+             autogenargs="-without-bmp --without-xmms --without-drm --without-mpeg4ip">
+    <branch repo="sourceforge" version="2.7"
+            module="faac/faad2-src/faad2-2.7/faad2-2.7.tar.bz2">
+      <patch file="http://git.gnome.org/browse/gtk-osx/plain/patches/faad2-2.7-ac-config-headers.patch" strip="1"/>
+    </branch>
   </autotools>
   <!-- }}} -->
 
