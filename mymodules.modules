@@ -392,6 +392,7 @@
       <dep package="gstreamer-1.0"/>
       <dep package="gst-plugins-base-1.0"/>
       <dep package="faad2"/>
+      <dep package="libvorbis"/>
     </dependencies>
   </autotools>
 
@@ -490,6 +491,15 @@
             module="faac/faad2-src/faad2-2.7/faad2-2.7.tar.bz2">
       <patch file="http://git.gnome.org/browse/gtk-osx/plain/patches/faad2-2.7-ac-config-headers.patch" strip="1"/>
     </branch>
+  </autotools>
+
+  <!-- opus audio codec
+       Upstream: http://downloads.xiph.org/releases/opus/
+       MacPorts: https://trac.macports.org/browser/trunk/dports/audio/libopus/Portfile
+  -->
+  <autotools id="libopus" autogen-sh="configure" autogenargs="--disable-doc">
+    <branch module="opus/opus-1.1.tar.gz"
+	    repo="xiph" version="1.1" hash="sha256:b9727015a58affcf3db527322bf8c4d2fcf39f5f6b8f15dbceca20206cbe1d95"/>
   </autotools>
   <!-- }}} -->
 
