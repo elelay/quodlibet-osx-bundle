@@ -30,7 +30,7 @@
   <repository type="tarball" name="mutagen"
               href="https://bitbucket.org/lazka/mutagen/downloads/"/>
   <repository type="tarball" name="quodlibet"
-              href="https://bitbucket.org/lazka/quodlibet-files/raw/default/releases"/>
+              href="https://bitbucket.org/lazka/quodlibet-files/raw/default/releases/"/>
   <repository type="tarball" name="entropywave"
 	      href="http://code.entropywave.com/download/"/>
   <repository type="tarball" name="xiph"
